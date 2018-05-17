@@ -3,9 +3,10 @@ package com.stackroute.maverick;
 //import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 //import com.stackroute.gameManager.domain.GameManager;
-
+@EnableDiscoveryClient
 @SpringBootApplication
 public class GameManagerApplication {
 

@@ -13,7 +13,8 @@ public class Game {
 	private String gameImage;
 	private String createdBy;
 	private Date createdOn;
-	private String gameType;
+	//private String gameType;
+	private GameType gameType;
 	private String gameDescription;
 	private String gameRules;
 	private int gamePopularity;
@@ -25,12 +26,12 @@ public class Game {
 	public Game() {
 	}
 
-	public Game(int gameId, String gameImage, String createdBy, Date createdOn, String gameType, String gameDescription,
-			String gameRules, int gamePopularity, GameQuestionLevel questionLevels, GameQuestionTime questionTime,
-			GameQuestionScore questionScore, Topic topic) {
+	public Game(int gameId, String gameImage, String createdBy, Date createdOn, GameType gameType,
+			String gameDescription, String gameRules, int gamePopularity, GameQuestionLevel questionLevels,
+			GameQuestionTime questionTime, GameQuestionScore questionScore, Topic topic) {
 		super();
 		this.gameId = gameId;
-		this.gameImage= gameImage;
+		this.gameImage = gameImage;
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.gameType = gameType;
@@ -51,6 +52,14 @@ public class Game {
 		this.gameId = gameId;
 	}
 
+	public String getGameImage() {
+		return gameImage;
+	}
+
+	public void setGameImage(String gameImage) {
+		this.gameImage = gameImage;
+	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -67,11 +76,11 @@ public class Game {
 		this.createdOn = createdOn;
 	}
 
-	public String getGameType() {
+	public GameType getGameType() {
 		return gameType;
 	}
 
-	public void setGameType(String gameType) {
+	public void setGameType(GameType gameType) {
 		this.gameType = gameType;
 	}
 
@@ -131,14 +140,6 @@ public class Game {
 		this.topic = topic;
 	}
 
-	public String getGameImage() {
-		return gameImage;
-	}
-
-	public void setGameImage(String gameImage) {
-		this.gameImage = gameImage;
-	}
-
 	@Override
 	public String toString() {
 		return "Game [gameId=" + gameId + ", gameImage=" + gameImage + ", createdBy=" + createdBy + ", createdOn="
@@ -146,4 +147,8 @@ public class Game {
 				+ gameRules + ", gamePopularity=" + gamePopularity + ", questionLevels=" + questionLevels
 				+ ", questionTime=" + questionTime + ", questionScore=" + questionScore + ", topic=" + topic + "]";
 	}
+
+	 
+
+	
 }

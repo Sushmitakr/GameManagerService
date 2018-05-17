@@ -15,51 +15,50 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import com.stackroute.maverick.kafkaservices.KafkaConsumer;
+
 @Configuration
 @EnableKafka
 public class KafkaConsumerConfig {
 
-
 	@Value("${kafka.bootstrap-servers}")
 	private String bootstrapServer;
-
 
 	@Bean
 	public Map<String, Object> consumerConfigs() {
 		Map<String, Object> props = new HashMap<>();
-		// list of host:port pairs used for establishing the initial connections to the Kafka cluster
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-				bootstrapServer);
-		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-				StringDeserializer.class);
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-				StringDeserializer.class);
-		// allows a pool of processes to divide the work of consuming and processing records
+		// list of host:port pairs used for establishing the initial connections to the
+		// Kafka cluster
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+
+		// allows a pool of processes to divide the work of consuming and processing
+		// records
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "gamemanager");
 		// automatically reset the offset to the earliest offset
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-		//deserializing the value
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-		//adding all classes to deserialization
-		props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+		// deserializing the value
 		
+		// adding all classes to deserialization
+		props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+
 		return props;
 	}
-	
+
 	@Bean
-	public ConsumerFactory<String,Object> consumerFactory() {
-			    
-	   
+	public ConsumerFactory<String, Object> consumerFactory() {
+
 		return new DefaultKafkaConsumerFactory<>(consumerConfigs());
 	}
-	 
+
 	@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
-	    ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
-	    factory.setConsumerFactory(consumerFactory());
-	    return factory;
+		ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(consumerFactory());
+		return factory;
 	}
-	
+
 	@Bean
 	public KafkaConsumer receiver() {
 		return new KafkaConsumer();
